@@ -1,5 +1,12 @@
 # Micronaut-Notes
 
+
+## Env variables 
+
+`MICRONAUT_ENVIRONMENTS=dev ./gradlew run`  
+
+
+
 ## CLI
 
 `mn create-app --list-features` - list all features  
