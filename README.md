@@ -5,8 +5,15 @@
 
 `MICRONAUT_ENVIRONMENTS=dev ./gradlew run`  
 
+## Control panel 
 
+    developmentOnly("io.micronaut.controlpanel:micronaut-control-panel-ui")
+    developmentOnly("io.micronaut.controlpanel:micronaut-control-panel-management")
 
+    Micronaut.build(args).mainClass(Application).defaultEnvironments('dev').start()
+
+`localhost:8080/control-panel`
+   
 ## CLI
 
 `mn create-app --list-features` - list all features  
