@@ -1,5 +1,8 @@
 # Micronaut-Notes
 
+## CLI
+
+`mn create-app --list-features` - list all features  
 
 ## Return text 
 
