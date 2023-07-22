@@ -1,6 +1,18 @@
 # Micronaut-Notes
 
 
+## Return text 
+
+We use the `@Produces` annotation with `MediatType.TEXT_PLAIN`. 
+
+```groovy
+@Get('hello')
+@Produces(MediaType.TEXT_PLAIN)
+String index() {
+    return 'hello there!'
+}
+```
+
 ## Configure app
 
 The application can be configured with `ApplicationContextConfigurer` or `Micronaut.build`.
