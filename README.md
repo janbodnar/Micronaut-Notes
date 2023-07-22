@@ -38,3 +38,50 @@ class Application {
     }
 }
 ```
+## Create bean via factory
+
+```groovy
+package bean
+
+class Hello implements IHello {
+
+    @Override
+    String sayHello() {
+        return "hello there!"
+    }
+}
+
+---
+
+package bean
+
+interface IHello {
+
+    String sayHello()
+}
+
+---
+
+package factory
+
+import bean.Hello
+import bean.IHello
+import io.micronaut.context.annotation.Factory
+import jakarta.inject.Singleton
+
+@Factory
+class MyBeanFactory {
+    @Singleton
+    IHello getHelloBean() {
+        return new Hello()
+    }
+}
+```
+
+
+
+
+
+
+
+
