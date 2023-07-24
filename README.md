@@ -1,9 +1,11 @@
 # Micronaut-Notes
 
 
-## Env variables 
 
-`MICRONAUT_ENVIRONMENTS=dev ./gradlew run`  
+
+
+changing port in `application.properties`: `micronaut.server.port=8081`  
+setting development environment - `MICRONAUT_ENVIRONMENTS=dev ./gradlew run`  
 
 ## Control panel 
 
