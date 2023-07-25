@@ -60,7 +60,7 @@ class MyController {
 record User(String name, String occupation) {}
 ```
 
-The view
+The views are located in `src/resources/views` by default
 
 ```html
 <!doctype html>
