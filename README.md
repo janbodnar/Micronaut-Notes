@@ -32,6 +32,71 @@ String index() {
 }
 ```
 
+## Pebble view
+
+The controller sets the name of the view with `@View`. The default extension for  
+Pebble views is html. 
+
+```groovy
+package pebblelist.controller
+
+import io.micronaut.http.HttpResponse
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import io.micronaut.views.View
+
+@Controller
+class MyController {
+
+    @View("users")
+    @Get("/users")
+    HttpResponse<?> index() {
+        def data = ['users' : [new User("John Doe", 'gardener'),
+                    new User('Roger Roe', 'driver')]]
+        return HttpResponse.ok(data)
+    }
+}
+
+record User(String name, String occupation) {}
+```
+
+The view
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Users</title>
+</head>
+<body>
+
+    <table>
+        <thead>
+            <tr>
+            <th>name</th>
+            <th>occupation</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for u in users %}
+        <tr>
+            <td>{{u.name}}</td>
+            <td>{{u.occupation}}</td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</body>
+</html>
+```
+
+
+
 ## Configure app
 
 The application can be configured with `ApplicationContextConfigurer` or `Micronaut.build`.
