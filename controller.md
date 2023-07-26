@@ -56,27 +56,27 @@ class MyControllerSpec extends Specification {
     @Shared @Inject
     EmbeddedServer embeddedServer
 
-    @Shared @AutoCleanup @Inject @Client("/")
+    @Shared @AutoCleanup @Inject @Client('/')
     HttpClient client
 
     void 'test home'() {
         when:
-        client.toBlocking().exchange("/")
+        client.toBlocking().exchange('/')
 
         then:
         noExceptionThrown()
     }
 
-    void "test hello endpoint"() {
+    void 'test hello endpoint'() {
         given:
-        HttpResponse response = client.toBlocking().exchange("/hello")
+        HttpResponse response = client.toBlocking().exchange('/hello')
 
         expect:
         response.status == HttpStatus.OK
         response.getBody(String.class).get() == 'hello there!'
     }
 
-    void "get endpoint with post method should fail"() {
+    void 'get endpoint with post method should fail'() {
         when:
         client.toBlocking().exchange(HttpRequest.POST('/', [msg: 'hello']))
 
@@ -87,17 +87,17 @@ class MyControllerSpec extends Specification {
         ex.status == HttpStatus.METHOD_NOT_ALLOWED
     }
 
-    void "test status"() {
+    void 'test status'() {
         given:
-        HttpResponse response = client.toBlocking().exchange("/status")
+        HttpResponse response = client.toBlocking().exchange('/status')
 
         expect:
         response.status == HttpStatus.OK
     }
 
-    void "test non-existing endpoint"() {
+    void 'test non-existing endpoint'() {
         when:
-        client.toBlocking().exchange("/notfound")
+        client.toBlocking().exchange('/notfound')
 
         then:
         HttpClientResponseException ex = thrown()
