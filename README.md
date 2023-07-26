@@ -11,7 +11,10 @@ setting development environment - `MICRONAUT_ENVIRONMENTS=dev ./gradlew run`
 
 Initialize H2 database in `application.properties`  
 
+Either separate into schema and data  
 `datasources.default.url=jdbc:h2:mem:testdb;INIT=RUNSCRIPT FROM 'classpath:/schema.sql'\\;RUNSCRIPT FROM 'classpath:/data.sql'`   
+
+or in one SQL script  
 `datasources.default.url=jdbc:h2:mem:testdb;INIT=RUNSCRIPT FROM 'classpath:/init_db.sql'`  
 
 Default schema generation must be turned off  
