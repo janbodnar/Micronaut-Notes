@@ -11,11 +11,44 @@ setting development environment - `MICRONAUT_ENVIRONMENTS=dev ./gradlew run`
 
 Initialize H2 database in `application.properties`  
 
-`datasources.default.url=jdbc:h2:mem:testdb;INIT=RUNSCRIPT FROM 'classpath:/schema.sql'\\;RUNSCRIPT FROM 'classpath:/data.sql'`
-`datasources.default.url=jdbc:h2:mem:testdb;INIT=RUNSCRIPT FROM 'classpath:/init_db.sql'`
+`datasources.default.url=jdbc:h2:mem:testdb;INIT=RUNSCRIPT FROM 'classpath:/schema.sql'\\;RUNSCRIPT FROM 'classpath:/data.sql'`  
+`datasources.default.url=jdbc:h2:mem:testdb;INIT=RUNSCRIPT FROM 'classpath:/init_db.sql'`  
 
 Default schema generation must be turned off  
 `#datasources.default.schema-generate=CREATE_DROP`
+
+The table name and the table column names must match the naming strategy of the entities.  
+
+```groovy
+package repojdbc.model
+
+import io.micronaut.core.annotation.Nullable
+import io.micronaut.data.annotation.GeneratedValue
+import io.micronaut.data.annotation.Id
+import io.micronaut.data.annotation.MappedEntity
+import io.micronaut.data.model.naming.NamingStrategies
+
+@MappedEntity(value = 'users', namingStrategy = NamingStrategies.LowerCase)
+class User {
+
+    @Id
+    @Nullable
+    @GeneratedValue
+    Long id
+
+    String firstName
+    String lastName
+    String occupation
+
+    User(String firstName, String lastName, String occupation) {
+        this.firstName = firstName
+        this.lastName = lastName
+        this.occupation = occupation
+    }
+}
+```
+
+
 
 
 ## Control panel 
