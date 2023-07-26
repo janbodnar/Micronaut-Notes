@@ -97,6 +97,18 @@ class RepojdbcSpec extends Specification {
 }
 ```
 
+The `init_db.sql` file  
+
+```sql
+CREATE TABLE users(id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    firstName VARCHAR(255), lastName VARCHAR(255), occupation VARCHAR(255) );
+
+INSERT INTO users(firstname, lastname, occupation) VALUES('John', 'Doe', 'gardener');
+INSERT INTO users(firstname, lastname, occupation) VALUES('Jane', 'Doe', 'teacher');
+INSERT INTO users(firstname, lastname, occupation) VALUES('Peter', 'Maly', 'shopkeeper');
+INSERT INTO users(firstname, lastname, occupation) VALUES('Roger', 'Roe', 'driver');
+```
+
 
 ## Control panel 
 
