@@ -51,7 +51,51 @@ class User {
 }
 ```
 
+## Test repository
 
+Repository with a query expression  
+
+```groovy
+package repojdbc.resository
+
+import io.micronaut.data.jdbc.annotation.JdbcRepository
+import io.micronaut.data.model.query.builder.sql.Dialect
+import io.micronaut.data.repository.CrudRepository
+import repojdbc.model.User
+
+@JdbcRepository(dialect=Dialect.H2)
+interface UserRepository extends CrudRepository<User, Long> {
+
+    List<User> findByLastNameStartsWith(String str)
+}
+```
+
+Testing class  
+
+```groovy
+package repojdbc
+
+import io.micronaut.test.extensions.spock.annotation.MicronautTest
+import jakarta.inject.Inject
+import repojdbc.resository.UserRepository
+import spock.lang.Specification
+
+@MicronautTest
+class RepojdbcSpec extends Specification {
+
+    @Inject
+    UserRepository repository
+
+    def 'find users by last name starting with D'() {
+        given:
+        def data = repository.findByLastNameStartsWith('D')
+
+        expect:
+        data.size() == 4
+        data.get(0).lastName == 'Doe'
+    }
+}
+```
 
 
 ## Control panel 
