@@ -7,6 +7,17 @@
 changing port in `application.properties`: `micronaut.server.port=8081`  
 setting development environment - `MICRONAUT_ENVIRONMENTS=dev ./gradlew run`  
 
+## H2 database 
+
+Initialize H2 database in `application.properties`  
+
+`datasources.default.url=jdbc:h2:mem:testdb;INIT=RUNSCRIPT FROM 'classpath:/schema.sql'\\;RUNSCRIPT FROM 'classpath:/data.sql'`
+`datasources.default.url=jdbc:h2:mem:testdb;INIT=RUNSCRIPT FROM 'classpath:/init_db.sql'`
+
+Default schema generation must be turned off  
+`#datasources.default.schema-generate=CREATE_DROP`
+
+
 ## Control panel 
 
     developmentOnly("io.micronaut.controlpanel:micronaut-control-panel-ui")
