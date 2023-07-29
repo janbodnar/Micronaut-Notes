@@ -59,6 +59,36 @@ zetcode:
   colours: ['red', 'blue', 'white']
 ```
 
+Test  
+
+```groovy
+package config
+
+import com.zetcode.config.MyConfig
+import io.micronaut.runtime.EmbeddedApplication
+import io.micronaut.test.extensions.spock.annotation.MicronautTest
+import spock.lang.Specification
+import jakarta.inject.Inject
+
+@MicronautTest
+class ConfigSpec extends Specification {
+
+    @Inject
+    EmbeddedApplication<?> application
+
+    void "test team configuration"() {
+        when:
+        def cfg = application.applicationContext.getBean(MyConfig)
+
+        then:
+        cfg.name == "John Doe"
+        cfg.message == "hello there!"
+        cfg.colours == ['red', 'blue', 'white']
+        
+    }
+}
+```
+
 
 ## H2 database 
 
