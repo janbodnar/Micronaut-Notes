@@ -76,7 +76,7 @@ class ConfigSpec extends Specification {
     @Inject
     EmbeddedApplication<?> application
 
-    void "test team configuration"() {
+    void "test app configuration"() {
         when:
         def cfg = application.applicationContext.getBean(MyConfig)
 
