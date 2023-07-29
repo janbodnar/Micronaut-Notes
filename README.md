@@ -51,6 +51,27 @@ class User {
 }
 ```
 
+## Event listenter 
+
+Execute code at application startup  
+
+```groovy
+package eventlist.listener
+
+import io.micronaut.context.event.StartupEvent
+import io.micronaut.runtime.event.annotation.EventListener
+import jakarta.inject.Singleton
+
+@Singleton
+class StartUpListener {
+
+    @EventListener
+    final void onStartup(StartupEvent event) {
+        println 'application started'
+    }
+}
+```
+
 ## Test repository
 
 Repository with a query expression  
