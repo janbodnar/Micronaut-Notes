@@ -7,6 +7,59 @@
 changing port in `application.properties`: `micronaut.server.port=8081`  
 setting development environment - `MICRONAUT_ENVIRONMENTS=dev ./gradlew run`  
 
+
+## @ConfigurationProperties
+
+The configuration class  
+
+```groovy
+package com.zetcode.config
+
+import io.micronaut.context.annotation.ConfigurationProperties
+
+@ConfigurationProperties('zetcode')
+class MyConfig {
+    String name
+    String message
+    List<String> colours
+}
+```
+The controller  
+
+```groovy
+package com.zetcode.controller
+
+import com.zetcode.config.MyConfig
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import jakarta.inject.Inject
+
+@Controller("/test-config")
+class MyController {
+
+    @Inject MyConfig cfg
+
+    @Get(uri="/", produces="text/plain")
+    String index() {
+        [cfg.name, cfg.message, cfg.colours]
+    }
+}
+```
+
+The configuration data in the `application.yml` file  
+
+```groovy
+micronaut:
+  application:
+    name: config
+
+zetcode:
+  name: John Doe
+  message: 'hello there!'
+  colours: ['red', 'blue', 'white']
+```
+
+
 ## H2 database 
 
 Initialize H2 database in `application.properties`  
