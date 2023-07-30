@@ -37,6 +37,20 @@ class AppStartListener {
 }
 ```
 
+Properties can be retrieved from the `Environment` through `get` or `getProperty`.  
+
+```groovy
+@Inject
+private Environment env
+
+@EventListener
+void onStartup(StartupEvent event) {
+
+    println env.get('app.message', String).get()
+    println env.getProperty('app.message', String).get()
+}
+```
+
 
 ## H2 database 
 
