@@ -8,6 +8,9 @@ setting development environment - `MICRONAUT_ENVIRONMENTS=dev ./gradlew run`
 The current application environment. The environment represents the loaded configuration  
 of the application for a current list of active environment names.  
 
+ A *default environment* is one that is only applied if no other environments are explicitly  
+ specified or deduced.
+
 ```groovy
 package com.zetcode.start
 
