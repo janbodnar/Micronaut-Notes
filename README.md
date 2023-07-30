@@ -46,8 +46,8 @@ private Environment env
 @EventListener
 void onStartup(StartupEvent event) {
 
-    println env.get('app.message', String).get()
-    println env.getProperty('app.message', String).get()
+    println env.get('app.message', String).orElse('message not set')
+    println env.getProperty('app.message', String).orElse('message not set')
 }
 ```
 
