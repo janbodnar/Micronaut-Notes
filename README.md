@@ -71,7 +71,7 @@ public class GreetingController {
 Test  
 
 ```groovy
-def "error enpoint should result in throwing HttpClientResponseException"() {
+def "enpoint should throw HttpClientResponseException"() {
     when:
     HttpResponse response = client.toBlocking().exchange("/greeting/error", String)
 
