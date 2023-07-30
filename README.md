@@ -10,6 +10,9 @@ of the application for a current list of active environment names.
  A *default environment* is one that is only applied if no other environments are explicitly  
  specified or deduced.
 
+Setting environments via System property:  
+`$java -Dmicronaut.environments=dev,qa -jar build\libs\environment-0.1-all.jar`  
+
 ```groovy
 package com.zetcode.start
 
