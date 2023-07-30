@@ -35,6 +35,9 @@ class StartUpListener {
 
 ## @ConfigurationProperties
 
+The `@ConfigurationProperties` annotation allows us to inject properties into  
+multiple fields.  
+
 The configuration class  
 
 ```groovy
