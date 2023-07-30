@@ -52,6 +52,40 @@ void onStartup(StartupEvent event) {
 ```
 
 
+## Processing an exception in test 
+
+Endpoint  
+
+```groovy
+@Controller("/greeting")
+public class GreetingController {
+
+    @Get("/error")
+    public HttpResponse<String> errorEndpoint() {
+        return HttpResponse.status(HttpStatus.UNPROCESSABLE_ENTITY).body("ERROR");
+    }
+
+}
+```
+
+Test  
+
+```groovy
+def "error enpoint should result in throwing HttpClientResponseException"() {
+    when:
+    HttpResponse response = client.toBlocking().exchange("/greeting/error", String)
+
+    then:
+    HttpClientResponseException ex = thrown()
+    and:
+    ex.status == HttpStatus.UNPROCESSABLE_ENTITY
+    and:
+    ex.response.body == Optional.of('ERROR')
+}
+```
+
+
+
 ## H2 database 
 
 Initialize H2 database in `application.properties`  
