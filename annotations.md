@@ -60,7 +60,7 @@ class MyControllerSpec extends Specification {
     @Shared @AutoCleanup @Inject @Client("/")
     HttpClient client
 
-    void "test index"() {
+    void "test body annotation"() {
         given:
         String payload = 'sample message'
         HttpResponse res = client.toBlocking()
