@@ -2,6 +2,26 @@
 
 changing port in `application.properties`: `micronaut.server.port=8081`  
 
+
+## Get property
+
+```groovy
+package getprop
+
+import io.micronaut.runtime.Micronaut
+import io.micronaut.context.ApplicationContext
+import groovy.transform.CompileStatic
+
+@CompileStatic
+class Application {
+
+    static void main(String[] args) {
+        ApplicationContext ctx =  Micronaut.run(Application, args)
+        ctx.getProperty('micronaut.application.name', String).ifPresent {println(it)}
+    }
+}
+```
+
 ## Environment 
 
 The current application environment. The environment represents the loaded configuration  
