@@ -1,6 +1,28 @@
 # Testing controller
 
 
+## Multiple URIs
+ 
+```java
+@Get(uris = { "/pattern", "/pattern1", "/pattern2", "/pattern3",
+        "/pattern4", "/pattern5" }, produces = "text/plain")
+String pattern() {
+
+    return "calling pattern filters";
+}
+```
+
+## Send header
+
+```java
+@Head(uri = "/pattern-m")
+HttpResponse<?> methods() {
+
+    return HttpResponse.ok()
+            .header("X-TEST-HEAD", "HEAD request processed");
+}
+```
+
 
 ```groovy
 package testex.controller
