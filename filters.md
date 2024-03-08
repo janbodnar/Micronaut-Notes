@@ -2,8 +2,79 @@
 
 ## Test filter order
 
+`OrderFilter1`
+
 ```java
-package com.baeldung.micronaut.httpfilters;
+package zom.zetcode.filter;
+
+import zom.zetcode.filter.service.LogService;
+
+import io.micronaut.core.annotation.Order;
+import io.micronaut.http.HttpRequest;
+import io.micronaut.http.annotation.RequestFilter;
+import io.micronaut.http.annotation.ServerFilter;
+import io.micronaut.scheduling.TaskExecutors;
+import io.micronaut.scheduling.annotation.ExecuteOn;
+
+@Order(100)
+@ServerFilter(value="/order-filter")
+public class OrderFilter1 {
+
+    private final LogService logService;
+
+    public OrderFilter1(LogService logService) {
+        this.logService = logService;
+    }
+
+    @RequestFilter
+    @ExecuteOn(TaskExecutors.BLOCKING)
+    public void filterRequest(HttpRequest<?> request) {
+        logService.logOrderFilter(request, "OrderFilter1");
+    } 
+}
+```
+
+`OrderFilter2`
+
+```java
+package com.baeldung.micronaut.httpfilters.filters;
+
+import com.baeldung.micronaut.httpfilters.service.LogService;
+
+import io.micronaut.core.order.Ordered;
+import io.micronaut.http.HttpRequest;
+import io.micronaut.http.annotation.RequestFilter;
+import io.micronaut.http.annotation.ServerFilter;
+import io.micronaut.scheduling.TaskExecutors;
+import io.micronaut.scheduling.annotation.ExecuteOn;
+
+@ServerFilter(value = "/order-filter")
+public class OrderFilter2 implements Ordered {
+
+    private final LogService logService;
+
+    public OrderFilter2(LogService logService) {
+        this.logService = logService;
+    }
+
+    @RequestFilter
+    @ExecuteOn(TaskExecutors.BLOCKING)
+    public void filterRequest(HttpRequest<?> request) {
+        logService.logOrderFilter(request, "OrderFilter2");
+    }
+
+    @Override
+    public int getOrder() {
+        return 99;
+    }
+}
+```
+
+
+
+
+```java
+package com.zetcode.filter;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertTrue;
