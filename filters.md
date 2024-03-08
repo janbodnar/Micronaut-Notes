@@ -32,11 +32,11 @@ public class MemoryAppender extends AppenderBase<ILoggingEvent> {
 `MemoryLogger`
 
 ```java
-package com.zetcode.filter.bean;
+package com.zetcode.bean;
 
 import org.slf4j.LoggerFactory;
 
-import  com.zetcode.filter.service.LogService;
+import com.zetcode.service.LogService;
 
 import ch.qos.logback.classic.Logger;
 import io.micronaut.context.annotation.Prototype;
@@ -100,9 +100,9 @@ public class OrderFilter1 {
 `OrderFilter2`
 
 ```java
-package com.baeldung.micronaut.httpfilters.filters;
+package com.zetcode.filter;
 
-import com.baeldung.micronaut.httpfilters.service.LogService;
+import com.zetcode.service.LogService;
 
 import io.micronaut.core.order.Ordered;
 import io.micronaut.http.HttpRequest;
