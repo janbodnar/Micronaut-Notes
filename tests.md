@@ -10,7 +10,5 @@ void testPatternGetMethodNotAllowed(@Client("/") HttpClient httpClient) {
     assertThrows(HttpClientResponseException.class,
             () -> client.exchange(HttpRequest.GET("/some-path")),
             HttpStatus.METHOD_NOT_ALLOWED.getReason());
-
-    mlog.stopAppender();
 }
 ```
