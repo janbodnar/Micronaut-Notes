@@ -8,7 +8,7 @@ void testPatternGetMethodNotAllowed(@Client("/") HttpClient httpClient) {
 
     BlockingHttpClient client = httpClient.toBlocking();
     assertThrows(HttpClientResponseException.class,
-            () -> client.exchange(HttpRequest.GET("/pattern-m")),
+            () -> client.exchange(HttpRequest.GET("/some-path")),
             HttpStatus.METHOD_NOT_ALLOWED.getReason());
 
     mlog.stopAppender();
