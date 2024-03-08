@@ -1,4 +1,4 @@
-# Testing controller
+# Controllers
 
 
 ## Multiple URIs
@@ -23,6 +23,7 @@ HttpResponse<?> methods() {
 }
 ```
 
+## Testing controller
 
 ```groovy
 package testex.controller
