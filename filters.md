@@ -2,6 +2,69 @@
 
 ## Test filter order
 
+`MemoryAppender`
+
+```java
+package com.zetcode.bean;
+
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.AppenderBase;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MemoryAppender extends AppenderBase<ILoggingEvent> {
+
+    private final List<ILoggingEvent> events = new ArrayList<>();
+
+    @Override
+    protected void append(ILoggingEvent e) {
+        events.add(e);
+    }
+
+    public List<ILoggingEvent> getEvents() {
+        return events;
+    }
+}
+```
+
+
+`MemoryLogger`
+
+```java
+package com.zetcode.filter.bean;
+
+import org.slf4j.LoggerFactory;
+
+import  com.zetcode.filter.service.LogService;
+
+import ch.qos.logback.classic.Logger;
+import io.micronaut.context.annotation.Prototype;
+
+@Prototype
+public class MemoryLogger {
+
+    private final Logger log;
+    private final MemoryAppender appender;
+
+    public MemoryLogger() {
+
+        log = (Logger) LoggerFactory.getLogger(LogService.class);
+        appender = new MemoryAppender();
+        log.addAppender(appender);
+        appender.start();
+    }
+
+    public MemoryAppender getAppender() {
+        return appender;
+    }
+
+    public void stopAppender() {
+        appender.stop();
+    }
+}
+```
+
 `OrderFilter1`
 
 ```java
@@ -71,7 +134,7 @@ public class OrderFilter2 implements Ordered {
 ```
 
 
-
+`OrderFilterTest`
 
 ```java
 package com.zetcode.filter;
