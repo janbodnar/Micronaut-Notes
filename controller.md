@@ -12,6 +12,27 @@ String pattern() {
 }
 ```
 
+## Plain text
+
+```java
+@Get(value = "/status", produces = MediaType.TEXT_PLAIN)
+public HttpResponse<String> status() {
+    return HttpResponse.ok("text")
+            .contentType(MediaType.TEXT_PLAIN);
+}
+```
+
+## Status
+
+```java
+@Get("/")
+@Status(HttpStatus.OK)
+public String index() {
+    return "Home page";
+}
+```
+
+
 ## Send header
 
 ```java
