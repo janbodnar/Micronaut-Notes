@@ -32,6 +32,20 @@ public String index() {
 }
 ```
 
+## Redirects
+
+```java
+@Get("/redirect")
+public HttpResponse<?> redirect() {
+    return HttpResponse.redirect(URI.create("/new-location"));
+}
+
+@Get("/new-location")
+public String newLocation() {
+    return "You have been redirected to new location";
+}
+```
+
 
 ## Send header
 
