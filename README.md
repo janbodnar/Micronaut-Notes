@@ -104,6 +104,17 @@ def "enpoint should throw HttpClientResponseException"() {
 }
 ```
 
+## Enable gradle terminal test output
+
+```gradle
+tasks.withType(Test).configureEach {
+    testLogging {
+        // show basic events and standard streams so logs from tests are visible
+        events "passed", "skipped", "failed"
+        showStandardStreams = true
+    }
+}
+```
 
 
 ## H2 database 
