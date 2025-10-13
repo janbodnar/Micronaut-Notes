@@ -21,6 +21,45 @@ public class Application {
 }
 ```
 
+## Start H2 console 
+
+```java
+package example.web;
+
+import org.h2.tools.Server;
+import io.micronaut.context.annotation.Value;
+
+import jakarta.annotation.PostConstruct;
+import io.micronaut.context.annotation.Context;
+import io.micronaut.context.annotation.Requires;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@Context
+@Requires(env = "dev")
+public class H2ConsoleStarter {
+
+    private static final Logger LOG = LoggerFactory.getLogger(H2ConsoleStarter.class);
+
+    private final int port;
+
+    public H2ConsoleStarter(@Value("${h2.console.port:8082}") int port) {
+        this.port = port;
+    }
+
+    @PostConstruct
+    public void startConsole() {
+        LOG.info("Starting H2 console at http://localhost:{}", port);
+        try {
+            Server.createWebServer("-web", "-webAllowOthers", "-webPort", String.valueOf(port)).start();
+            LOG.info("H2 console started");
+        } catch (Exception e) {
+            LOG.error("Failed to start H2 console on port {}", port, e);
+        }
+    }
+}
+```
+
 ## Get property
 
 ```groovy
