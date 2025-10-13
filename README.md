@@ -3,6 +3,24 @@
 changing port in `application.properties`: `micronaut.server.port=8081`  
 
 
+## Set env with app builder
+
+```java
+package example;
+
+import io.micronaut.runtime.Micronaut;
+
+public class Application {
+
+    public static void main(String[] args) {
+        Micronaut.build(args)
+                .defaultEnvironments("dev")
+                .mainClass(Application.class)
+                .start();
+    }
+}
+```
+
 ## Get property
 
 ```groovy
