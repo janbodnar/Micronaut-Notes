@@ -9,7 +9,7 @@ package example.security;
 import io.micronaut.core.annotation.NonNull;
 import jakarta.validation.constraints.NotBlank;
 
-public interface PasswordEncoder {
+public interface IPasswordEncoder {
     String encode(@NotBlank @NonNull String rawPassword);
 }
 ```
@@ -23,11 +23,12 @@ import jakarta.inject.Singleton;
 import io.micronaut.core.annotation.NonNull;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-// Using a different name to distinguish from our custom interface
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import example.security.IPasswordEncoder;
+
 @Singleton
-public class BCryptPasswordEncoderService implements example.security.PasswordEncoder {
+public class BCryptPasswordEncoderService implements IPasswordEncoder {
 
     private final PasswordEncoder delegate = new BCryptPasswordEncoder();
 
@@ -35,10 +36,10 @@ public class BCryptPasswordEncoderService implements example.security.PasswordEn
     public String encode(@NotBlank @NonNull String rawPassword) {
         return delegate.encode(rawPassword);
     }
-    
+
     // Additional method to verify password matches (useful for login)
-    public boolean matches(@NotBlank @NonNull String rawPassword, 
-                           @NotBlank @NonNull String encodedPassword) {
+    public boolean matches(@NotBlank @NonNull String rawPassword,
+            @NotBlank @NonNull String encodedPassword) {
         return delegate.matches(rawPassword, encodedPassword);
     }
 }
