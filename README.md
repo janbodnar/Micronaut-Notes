@@ -2,6 +2,19 @@
 
 changing port in `application.properties`: `micronaut.server.port=8081`  
 
+## MIcronaut version
+
+Using `VersionUtils`.
+
+```java
+@Get("/micronaut-version")
+public Map<String, String> micronautVersion() {
+
+    String micronautVersion = VersionUtils.MICRONAUT_VERSION;
+    return Map.of("micronautVersion", micronautVersion);
+}
+```
+
 
 ## Set env with app builder
 
