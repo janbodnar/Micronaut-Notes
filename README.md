@@ -34,6 +34,20 @@ public class Application {
 }
 ```
 
+## Favicon
+
+place `favicon.ico` into `src/main/resources/static` and configure the router:
+
+```yaml
+micronaut:
+  router:
+    static-resources:
+      default:
+        enabled: true
+        mapping: "/**"
+        paths: "classpath:static"
+```
+
 ## Start H2 console 
 
 ```java
