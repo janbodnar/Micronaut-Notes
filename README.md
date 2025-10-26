@@ -48,6 +48,23 @@ micronaut:
         paths: "classpath:static"
 ```
 
+## Tracing beans 
+
+The beans that are created, where they were created and how long  
+was taken to create the bean.
+
+```yaml
+micronaut:
+  inject:
+    trace: true
+```
+
+```java
+ApplicationContextBuilder builder = Micronaut.build(args)
+        .mainClass(Application.class)
+        .beanResolutionTrace(BeanResolutionTraceMode.STANDARD_OUT); // Enable DI tracing for all beans
+```
+
 ## Start H2 console 
 
 ```java
