@@ -26,7 +26,7 @@ public String sortQuickBody(@Body int[] input) {
 }
 ```
 
-```bash
+```
 $ echo '[5,2,9,1,5,6]' | xh POST :8080/sort/quick
 HTTP/1.1 200 OK
 Content-Length: 32
@@ -34,13 +34,12 @@ Content-Type: text/plain
 Date: Sun, 26 Oct 2025 19:28:06 GMT
 
 Quick sorted: [1, 2, 5, 5, 6, 9]
-$ xh POST :8080/sort/quick <<< '[5,2,9,1,5,6]'
-HTTP/1.1 200 OK
-Content-Length: 32
-Content-Type: text/plain
-Date: Sun, 26 Oct 2025 19:28:13 GMT
+```
 
-Quick sorted: [1, 2, 5, 5, 6, 9]
+```
+$ xh POST :8080/sort/quick <<< '[5,2,9,1,5,6]'
+$ xh POST :8080/sort/quick @temp_data.json
+$ printf '%s' '[5,2,9,1,5,6]' | xh POST :8080/sort/quick
 ```
 
 
