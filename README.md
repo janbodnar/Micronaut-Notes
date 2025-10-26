@@ -15,6 +15,35 @@ public Map<String, String> micronautVersion() {
 }
 ```
 
+## @Body annotation
+
+```java
+@Post("/sort/quick")
+@Produces("text/plain")
+public String sortQuickBody(@Body int[] input) {
+    int[] sorted = quickSortService.sort(input);
+    return String.format("Quick sorted: %s", Arrays.toString(sorted));
+}
+```
+
+```bash
+$ echo '[5,2,9,1,5,6]' | xh POST :8080/sort/quick
+HTTP/1.1 200 OK
+Content-Length: 32
+Content-Type: text/plain
+Date: Sun, 26 Oct 2025 19:28:06 GMT
+
+Quick sorted: [1, 2, 5, 5, 6, 9]
+$ xh POST :8080/sort/quick <<< '[5,2,9,1,5,6]'
+HTTP/1.1 200 OK
+Content-Length: 32
+Content-Type: text/plain
+Date: Sun, 26 Oct 2025 19:28:13 GMT
+
+Quick sorted: [1, 2, 5, 5, 6, 9]
+```
+
+
 
 ## Set env with app builder
 
