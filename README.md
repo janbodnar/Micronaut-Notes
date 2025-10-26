@@ -63,6 +63,7 @@ micronaut:
 ApplicationContextBuilder builder = Micronaut.build(args)
         .mainClass(Application.class)
         .beanResolutionTrace(BeanResolutionTraceMode.STANDARD_OUT); // Enable DI tracing for all beans
+builder.start();
 ```
 
 ## Start H2 console 
@@ -106,19 +107,18 @@ public class H2ConsoleStarter {
 
 ## Get property
 
-```groovy
-package getprop
+```java
+package com.zetcode;
 
-import io.micronaut.runtime.Micronaut
-import io.micronaut.context.ApplicationContext
-import groovy.transform.CompileStatic
+import io.micronaut.context.ApplicationContext;
+import io.micronaut.runtime.Micronaut;
 
-@CompileStatic
-class Application {
+public class Application {
 
-    static void main(String[] args) {
-        ApplicationContext ctx =  Micronaut.run(Application, args)
-        ctx.getProperty('micronaut.application.name', String).ifPresent {println(it)}
+    public static void main(String[] args) {
+
+        ApplicationContext ctx =  Micronaut.run(Application.class, args);
+        ctx.getProperty("micronaut.application.name", String.class).ifPresent(System.out::println);
     }
 }
 ```
