@@ -200,6 +200,17 @@ void onStartup(StartupEvent event) {
 }
 ```
 
+## Get User by Id
+
+```java
+@Get("/users/{id}")
+public HttpResponse<User> getUser(Long id) {
+    return userRepository.findById(id)
+            .map(HttpResponse::ok)
+            .orElse(HttpResponse.notFound());
+}
+```
+
 
 ## Processing an exception in test 
 
