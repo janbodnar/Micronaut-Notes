@@ -15,6 +15,18 @@ public Map<String, String> micronautVersion() {
 }
 ```
 
+## Show test output
+
+Add this to the `build.gradle` file. 
+
+```
+test {
+    testLogging {
+        events "passed", "failed"
+    }
+}
+```
+
 ## @Body annotation
 
 ```java
