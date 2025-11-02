@@ -2,7 +2,7 @@
 
 changing port in `application.properties`: `micronaut.server.port=8081`  
 
-## MIcronaut version
+## Micronaut version
 
 Using `VersionUtils`.
 
