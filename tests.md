@@ -60,4 +60,66 @@ class MessageServiceTest {
 }
 ```
 
+## Tests with EmbeddedServer
+
+Manual setup:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import io.micronaut.context.ApplicationContext;
+import io.micronaut.http.client.BlockingHttpClient;
+import io.micronaut.http.client.HttpClient;
+import io.micronaut.runtime.server.EmbeddedServer;
+
+class GreetingControllerTest {
+
+  @Test
+  void applicationContextWithoutMicronautTest() {
+    try (EmbeddedServer server = ApplicationContext.run(EmbeddedServer.class)) {
+      try (HttpClient httpClient = server.getApplicationContext().createBean(HttpClient.class, server.getURL())) {
+        BlockingHttpClient client = httpClient.toBlocking();
+
+        String json = assertDoesNotThrow(() -> client.retrieve("/"));
+        assertEquals("""
+            {"message":"Hello World"}""", json);
+      }
+    }
+  }
+}
+```
+
+With `@MicronautTest`:
+
+```java
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import io.micronaut.http.client.BlockingHttpClient;
+import io.micronaut.http.client.HttpClient;
+import io.micronaut.http.client.annotation.Client;
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+
+@MicronautTest
+class GreetingControllerTest {
+
+  @Test
+  void applicationContextWithoutMicronautTest(@Client("/") HttpClient httpClient) {
+    BlockingHttpClient client = httpClient.toBlocking();
+
+    String json = assertDoesNotThrow(() -> client.retrieve("/"));
+    assertEquals("""
+        {"message":"Hello World"}""", json);
+  }
+}
+```
 
