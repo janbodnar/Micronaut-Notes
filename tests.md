@@ -24,6 +24,7 @@ package com.example;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import io.micronaut.runtime.server.EmbeddedServer;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 
 @MicronautTest(startApplication = false)
@@ -31,7 +32,12 @@ class MessageServiceTest {
 
   @Test
   void applicationContextWithoutMicronautTest(MessageService messageService) {
-    Assertions.assertEquals("Hello World", messageService.message());
+    Assertions.assertEquals("Hello there!", messageService.message());
+  }
+
+  @Test
+  void embeddedServerNotRunning(EmbeddedServer embeddedServer) {
+    Assertions.assertFalse(embeddedServer.isRunning());
   }
 }
 ```
@@ -54,7 +60,7 @@ class MessageServiceTest {
   void applicationContextWithoutMicronautTest() {
     try (ApplicationContext context = ApplicationContext.run()) {
       MessageService messageService = context.getBean(MessageService.class);
-      Assertions.assertEquals("Hello World", messageService.message());
+      Assertions.assertEquals("Hello there!", messageService.message());
     }
   }
 }
@@ -87,7 +93,7 @@ class GreetingControllerTest {
 
         String json = assertDoesNotThrow(() -> client.retrieve("/"));
         assertEquals("""
-            {"message":"Hello World"}""", json);
+            {"message":"Hello there!"}""", json);
       }
     }
   }
@@ -118,7 +124,7 @@ class GreetingControllerTest {
 
     String json = assertDoesNotThrow(() -> client.retrieve("/"));
     assertEquals("""
-        {"message":"Hello World"}""", json);
+        {"message":"Hello there!"}""", json);
   }
 }
 ```
