@@ -131,6 +131,7 @@ class GreetingControllerTest {
 
 ## Test serialization
 
+The classes to be serialized bust be annotated with `@Serdeable` annotation. 
 
 ```java
 package com.example;
@@ -142,6 +143,9 @@ public record Post(Long id, Long userId, String title, String body) {
 }
 ```
 
+`JsonMapper` is a Micronaut interface for serializing and deserializing JSON.  
+It provides methods like `readValue` (to convert JSON strings to Java objects)  
+and `writeValueAsString` (to convert Java objects to JSON strings)
 
 ```java
 package com.example;
