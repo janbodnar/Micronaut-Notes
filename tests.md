@@ -129,3 +129,62 @@ class GreetingControllerTest {
 }
 ```
 
+## Test serialization
+
+
+```java
+package com.example;
+
+import io.micronaut.serde.annotation.Serdeable;
+
+@Serdeable
+public record Post(Long id, Long userId, String title, String body) {
+}
+```
+
+
+```java
+package com.example;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import io.micronaut.json.JsonMapper;
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+
+@MicronautTest(startApplication = false)
+class PostSerializeTest {
+
+  @Test
+  void deserializePost(JsonMapper jsonMapper) throws Exception {
+    String json = """
+        {
+          "id": 1,
+          "userId": 11,
+          "title": "Title 1",
+          "body": "Body 1"
+        }
+        """;
+
+    Post post = jsonMapper.readValue(json, Post.class);
+
+    Assertions.assertEquals(1L, post.id());
+    Assertions.assertEquals(11L, post.userId());
+    Assertions.assertTrue(post.title().startsWith("Title 1"));
+    Assertions.assertTrue(post.body().contains("Body"));
+  }
+
+  @Test
+  void serializePost(JsonMapper jsonMapper) throws Exception {
+    Post post = new Post(1L, 11L, "Title 1", "Body 1");
+    String json = jsonMapper.writeValueAsString(post);
+
+    Assertions.assertTrue(json.contains("\"id\":1"));
+    Assertions.assertTrue(json.contains("\"userId\":11"));
+    Assertions.assertTrue(json.contains("\"title\":\"Title 1\""));
+    Assertions.assertTrue(json.contains("\"body\":\"Body 1\""));
+  }
+}
+```
+
+
